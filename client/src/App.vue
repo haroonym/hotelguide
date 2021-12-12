@@ -48,11 +48,8 @@ export default {
     return {
       hotels: [],
       drawer: false,
- 
     };
   },
-
-  components: {},
   created() {
     this.getHotels();
   },

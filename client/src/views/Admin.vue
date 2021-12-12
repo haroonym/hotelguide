@@ -17,7 +17,7 @@
             <tr v-for="h in hotels" :key="h.hotel_id">
               <td>{{ h.name }}</td>
               <td>{{ h.preis_pro_nacht }} €</td>
-              <!-- <td>
+              <td>
                 <v-rating
                   :value="`${h.bewertung}`"
                   color="amber"
@@ -26,7 +26,7 @@
                   readonly
                   size="14"
                 ></v-rating>
-              </td> -->
+              </td>
               <td>{{ h.unterkunftsart }}</td>
               <td>{{ h.bzrk_name }}</td>
               <td>
