@@ -9,7 +9,7 @@
               <th class="font-italic">Preis Pro Nacht</th>
               <th class="font-italic">Bewertung</th>
               <th class="font-italic">Unterkunftsart</th>
-
+              <th class="font-italic">Bezirk</th>
               <th class="font-italic">Options</th>
             </tr>
           </thead>
@@ -42,7 +42,7 @@
                           <p>Name: {{ h.name }}</p>
                           <p>Postleitzahl & Bezirk: {{ h.postleitzahl }} Wien, {{ h.bzrk_name }}</p>
                           <p>Unterkunftsart: {{ h.unterkunftsart }}</p>
-                          <!-- <p>
+                          <p>
                             <v-rating
                               :value="`${h.bewertung}`"
                               color="grey lighten-1"
@@ -51,7 +51,7 @@
                               readonly
                               size="15"
                             ></v-rating>
-                          </p> -->
+                          </p>
                           <v-row>
                             <v-col cols="4">
                               <v-subheader>Preis Pro Nacht</v-subheader>
