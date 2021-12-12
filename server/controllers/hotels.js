@@ -1,3 +1,4 @@
+/* eslint-disable operator-linebreak */
 // eslint-disable-next-line spaced-comment
 /*eslint max-len: ["error", { "code": 250 }] */
 
@@ -41,12 +42,26 @@ const getHotelAusstattungen = asyncHandler(async (req, res) => {
 });
 
 const postHotel = asyncHandler(async (req, res) => {
-  const { name, preisProNacht, bewertung, unterkunftsart, postleitzahl } = req.body;
-  if (!name || !preisProNacht || !bewertung || !unterkunftsart || !postleitzahl) {
+  const { name, preisProNacht, bewertung, unterkunftsart, postleitzahl, beschreibung } = req.body;
+  if (
+    name == null ||
+    preisProNacht == null ||
+    bewertung == null ||
+    unterkunftsart == null ||
+    postleitzahl == null ||
+    beschreibung == null
+  ) {
     res
-      .status(400)
-      .send('One or more properties missing: name, preisProNacht, bewertung, unterkunftsart, postleitzahl');
-  } else res.status(201).json(await model.postHotel(req.body));
+      .status(404)
+      .send('One or more properties missing: name, preisProNacht, bewertung, unterkunftsart, postleitzahl, beschreibung');
+  } else {
+    try {
+      await model.postHotel(req.body);
+      res.status(200).send('Erfolgreich');
+    } catch (error) {
+      res.status(404).send('Fehlgeschlagen');
+    }
+  }
 });
 
 const deleteHotel = asyncHandler(async (req, res) => {
@@ -64,8 +79,12 @@ const changeHotelProps = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const rows = await model.getHotel({ id });
   if (rows.length > 0) {
-    model.changeHotelProps(id, req.body);
-    res.status(200).send(`Das Hotel mit der ID ${id} wurde erfolgreich geupdated`);
+    try {
+      await model.changeHotelProps(id, req.body);
+    } catch (error) {
+      res.status(200).send('Fehlgeschlagen');
+    }
+    res.status(200).send('Erfolgreich geupdated');
   } else {
     res.status(404).send(`Das Hotel mit der ID ${id} wurde nicht gefunden`);
   }

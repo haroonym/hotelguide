@@ -12,7 +12,7 @@ const getHotels = async () => {
 async function getHotelByID(query) {
   const { id } = query;
   const { rows } = await db.query(
-    'SELECT * FROM hotels join bezirke b on hotels.postleitzahl = b.postleitzahl order by hotel_id WHERE hotel_id = $1',
+    'SELECT * FROM hotels join bezirke b on hotels.postleitzahl = b.postleitzahl WHERE hotel_id = $1 order by hotel_id',
     [id],
   );
   return rows;
@@ -36,8 +36,15 @@ const getHotelAusstattungen = async (id) => {
 
 const postHotel = async (body) => {
   const { rows } = await db.query(
-    'INSERT INTO hotels (name, preis_pro_nacht, bewertung, unterkunftsart, postleitzahl) VALUES ($1,$2,$3,$4,$5) returning *',
-    [body.name, body.preisProNacht, body.bewertung, body.unterkunftsart, body.postleitzahl],
+    'INSERT INTO hotels (name, preis_pro_nacht, bewertung, unterkunftsart, postleitzahl, beschreibung) VALUES ($1,$2,$3,$4,$5,$6) returning *',
+    [
+      body.name,
+      body.preisProNacht,
+      body.bewertung,
+      body.unterkunftsart,
+      body.postleitzahl,
+      body.beschreibung,
+    ],
   );
   return rows;
 };

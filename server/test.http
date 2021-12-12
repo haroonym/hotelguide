@@ -9,10 +9,10 @@ Content-Type: application/json
 
 {
     "name": "Haroon Younas",
-    "preisProNacht": 20,
-    "bewertung": 5,
+    "preisProNacht": 49.99,
+    "bewertung": 0,
     "unterkunftsart": "Hotel",
-    "postleitzahl": 1210
+    "postleitzahl": "1210"
 }
 ###
 DELETE http://localhost:3000/hotel/1

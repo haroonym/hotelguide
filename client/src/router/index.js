@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Admin from '../views/Admin.vue';
 import Details from '../views/Details.vue';
+import AddHotel from '../views/AddHotel.vue';
 
 Vue.use(VueRouter);
 
@@ -18,10 +19,15 @@ const routes = [
     component: Home,
   },
   {
-    path: '/details/:hotel_id',
+    path: '/details/:hotelid',
     name: 'Details',
     component: Details,
     props: true,
+  },
+  {
+    path: '/addhotel',
+    name: 'AddHotel',
+    component: AddHotel,
   },
 ];
 

@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex flex-wrap justify-center flex-wrap mt-15">
-    <v-card class="mt-10 ma-5" width="500" elevation="5">
-      <v-img height="300" :src="hotel.image"></v-img>
+  <div class="d-flex flex-wrap justify-center flex-wrap mt-10">
+    <v-card class="ma-5" width="1000" elevation="5">
+      <v-img height="300" :src="`http://localhost:8080/${hotel.image}`" />
       <v-card-title>{{ hotel.name }}</v-card-title>
       <v-card-text class="black--text"
         ><b>{{ hotel.preis_pro_nacht }} €</b> pro Nacht</v-card-text
@@ -20,7 +20,8 @@
             <div class="ms-4">{{ hotel.bewertung }}</div></v-row
           >
           <div class="grey--text my-4 text-subtitle-1">Unterkunftsart: {{ hotel.unterkunftsart }}</div>
-          <div class="grey--text my-4 text-subtitle-1">Bezirk: {{ hotel.unterkunftsart }}</div>
+          <div class="grey--text my-4 text-subtitle-1">Bezirk: {{ hotel.bzrk_name }}</div>
+          <div class="grey--text my-4 text-subtitle-1">Beschreibung: {{ hotel.beschreibung }}</div>
         </v-card-text>
         <v-divider class="mx-4"></v-divider>
       </v-list-item-content>
@@ -36,7 +37,7 @@
 import axios from 'axios';
 export default {
   props: {
-    hotel_id: {
+    hotelid: {
       type: String,
     },
   },
@@ -45,14 +46,18 @@ export default {
       hotel: {},
     };
   },
+  created() {
+    this.getHotelwithID();
+  },
   methods: {
     async getHotelwithID() {
       try {
         const { data } = await axios({
-          url: `http://127.0.0.1:3000/hotels?id=${this.hotel_id}`,
+          url: `http://127.0.0.1:3000/hotels?id=${this.hotelid}`,
           method: 'GET',
         });
         this.hotel = data[0];
+        console.log(this.hotel);
       } catch (error) {
         console.error(error);
       }
@@ -61,4 +66,11 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+</style>
